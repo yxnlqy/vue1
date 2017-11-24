@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="./vue.js"></script>
+    <title>Document</title>
+    <style>
+        #box{
+            width:100px;
+            height:auto;
+        }
+        ul{
+            border-bottom: 1px solid #ccc;
+            padding-bottom:10px;
+        }
+        ul:last-child{
+            border:none;
+        }
+        h3{
+            cursor: pointer;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <navlist v-bind:con="con"></navlist>
+    </div>
+</body>
+</html>
+<script>
+    Vue.component("navlist",{
+        props:["con"],
+        template:`<div>
+                     <ul v-for="item in con">
+                         <h3 v-on:click="show(item)">{{item['title']}}</h3>
+                         <li v-for="son in item['arr']" v-show="!item['hide']">
+                         {{son}}
+                         </li>
+                     </ul>
+</div>`,
+        methods:{
+            show:function(item) {
+                item.hide = !item.hide;
+            }
+        }
+    }),
+    new Vue({
+        el:"#box",
+        data:{
+            con:[
+                {title:'基础',
+                    arr:["01","02","03","04","05","06","07"],hide:false
+                },
+                {title:'基础',
+                    arr:["01","02","03","04","05","06","07"],hide:false
+                },
+                {title:'基础',
+                    arr:["01","02","03","04","05","06","07"],hide:false
+                },
+            ]
+        }
+    })
+</script>
